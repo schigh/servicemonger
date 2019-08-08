@@ -18,7 +18,7 @@ type Config struct {
 	Colors         map[string]ui.Color        `yaml:"colors"`
 	Credentials    map[string]auth.Credential `yaml:"credentials"`
 	Commands       map[string]Command         `yaml:"commands"`
-	Images         map[string]ui.Image        `yaml:"images"`
+	Images         map[string]string          `yaml:"images"`
 	Services       []Service                  `yaml:"services"`
 }
 

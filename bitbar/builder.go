@@ -21,7 +21,7 @@ type Builder interface {
 	// at the beginning of the target line.
 	Nest(depth int) Builder
 	// Command will render a bash command
-	Command(c Command) Builder
+	Command(c *Command) Builder
 	// FOnt will render a font
 	Font(font ui.Font) Builder
 	// Typeface will render a typeface name within a font
@@ -32,6 +32,10 @@ type Builder interface {
 	Color(color ui.Color) Builder
 	// Href will render the link for the current line
 	Href(href string) Builder
+	// Image will render an image on the current line
+	Image(img string) Builder
+	// TemplateImage will render the main status bar image
+	TemplateImage(img string) Builder
 	// Bytes will return the buffered bytes to be written out
 	Bytes() []byte
 }
@@ -63,11 +67,14 @@ func (b *builder) Nest(depth int) Builder {
 	return b
 }
 
-func (b *builder) Command(c Command) Builder {
-	_, _ = b.Write([]byte(fmt.Sprintf(` bash="%s"`, c.Exec)))
-	for i, p := range c.Params {
-		_, _ = b.Write([]byte(fmt.Sprintf(` param%d="%s"`, i+1, p)))
+func (b *builder) Command(c *Command) Builder {
+	if c != nil {
+		_, _ = b.Write([]byte(fmt.Sprintf(` bash="%s"`, c.Exec)))
+		for i, p := range c.Params {
+			_, _ = b.Write([]byte(fmt.Sprintf(` param%d="%s"`, i+1, p)))
+		}
 	}
+
 	return b
 }
 
@@ -97,7 +104,21 @@ func (b *builder) Color(color ui.Color) Builder {
 }
 
 func (b *builder) Href(href string) Builder {
-	_, _ = b.Write([]byte(fmt.Sprintf(" href=%s", href)))
+	if href != "" {
+		_, _ = b.Write([]byte(fmt.Sprintf(" href=%s", href)))
+	}
+	return b
+}
+
+func (b *builder) Image(image string) Builder {
+	if image != "" {
+		_, _ = b.Write([]byte(fmt.Sprintf(" image=%s", image)))
+	}
+	return b
+}
+
+func (b *builder) TemplateImage(image string) Builder {
+	_, _ = b.Write([]byte(fmt.Sprintf(" templateImage=%s", image)))
 	return b
 }
 

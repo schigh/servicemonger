@@ -1,4 +1,5 @@
 package ui
 
-type Image struct {
+func DefaultStatusBarImage() string {
+	return imgB64
 }

@@ -1,0 +1,28 @@
+# https://www.webfx.com/tools/emoji-cheat-sheet/
+fonts:
+  default:
+    name: 'Menlo-Regular'
+    size: 12
+  bold:
+    name: 'Menlo-Bold'
+    size: 12
+  header:
+    name: 'Menlo-Bold'
+    size: 12
+services:
+  - title: 'Service 1'
+    links:
+      - title: 'repo'
+        href: 'https://github.com/myname/service1'
+        emoji: octopus
+      - title: 'pull requests'
+        href: 'https://github.com/myname/service1/pulls'
+        emoji: octopus
+  - title: 'Misc'
+    links:
+      - title: 'edit this menu'
+        emoji: rocket
+        command:
+          exec: 'vi'
+          params:
+            - '/path/to/sample-config.yml'
