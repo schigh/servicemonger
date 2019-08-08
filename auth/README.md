@@ -1,3 +1,5 @@
+# This package is a stub
+
 # auth
 --
     import "."
